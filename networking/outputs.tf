@@ -1,0 +1,29 @@
+output "vpc_id" {
+  description = "ID of the VPC"
+  value       = aws_vpc.main.id
+}
+
+output "vpc_cidr" {
+  description = "CIDR block of the VPC"
+  value       = aws_vpc.main.cidr_block
+}
+
+output "public_subnet_ids" {
+  description = "IDs of the public subnets"
+  value       = [for s in aws_subnet.public : s.id]
+}
+
+output "private_subnet_ids" {
+  description = "IDs of the private subnets"
+  value       = [for s in aws_subnet.private : s.id]
+}
+
+output "database_subnet_ids" {
+  description = "IDs of the isolated database subnets"
+  value       = [for s in aws_subnet.database : s.id]
+}
+
+output "nat_gateway_public_ips" {
+  description = "Public IPs of the NAT gateways (empty list when disabled)"
+  value       = [for eip in aws_eip.nat : eip.public_ip]
+}
